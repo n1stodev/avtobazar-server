@@ -62,7 +62,7 @@ class PostController {
                     description,
                     phoneNumber,
                     email,
-                    image: userUploadTitle
+                    image: "/imgs/"+userUploadTitle
                 });
                 await post.save();
                 res.status(201).send({
