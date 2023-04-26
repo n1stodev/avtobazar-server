@@ -1,5 +1,6 @@
 import Post from "../schemas/posts.schema.js"
 import usersSchema from "../schemas/users.schema.js";
+import pathLink from "path"
 import {
     JWT
 } from "../utils/jwt.js";
@@ -7,10 +8,15 @@ import {
 class PostController {
     static async create(req, res) {
         try {
+
             let token = req.headers.token;
+
             let {
                 _id
-            } = await usersSchema.findById(JWT.VERIFY(token).id)
+            } = await usersSchema.findById(JWT.VERIFY(token).id);
+            let {
+                file
+            } = req.files;
             let {
                 title,
                 distance,
@@ -19,9 +25,25 @@ class PostController {
                 wheel,
                 price,
                 description,
-                comments,
+                phoneNumber,
+                email,
+                imgtitle,
                 year,
             } = req.body;
+            if (file.truncated) throw new Error('you must send max 50 mb file')
+            let types = file.name.split('.')
+            let type = types[types.length - 1]
+            if (type != 'jpg') throw new Error("Image's type invalid!")
+            const random = Math.floor(Math.random() * 9000 + 1000)
+            let userUploadTitle = imgtitle + random + '.' + type
+            await file.mv(
+                pathLink.join(
+                    process.cwd(),
+                    'public',
+                    'imgs',
+                    userUploadTitle
+                )
+            )
             if (!_id) {
                 return res.send({
                     message: "Invalid token Please try again later",
@@ -38,7 +60,9 @@ class PostController {
                     price,
                     year,
                     description,
-                    comments
+                    phoneNumber,
+                    email,
+                    image: userUploadTitle
                 });
                 await post.save();
                 res.status(201).send({

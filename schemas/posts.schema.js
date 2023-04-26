@@ -39,6 +39,18 @@ const postSchema = new Schema({
         type: String,
         required: true
     },
+    phoneNumber: {
+        type: String,
+        required: true
+    },
+    email: {
+        type: String,
+        required: true
+    },
+    image: {
+        type: String,
+        required: true
+    },
     comments: [{
         type: Schema.Types.ObjectId,
         ref: 'Comment'
