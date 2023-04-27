@@ -25,16 +25,14 @@ class PostController {
                 description,
                 phoneNumber,
                 email,
-                imgtitle,
                 year,
             } = req.body;
-            console.log('req.body :', req.body);
             if (file.truncated) throw new Error('you must send max 50 mb file')
             let types = file.name.split('.')
             let type = types[types.length - 1]
             if (type != 'jpg') throw new Error("Image's type invalid!")
             const random = Math.floor(Math.random() * 9000 + 1000)
-            let userUploadTitle = imgtitle + random + '.' + type
+            let userUploadTitle = title + random + '.' + type
             await file.mv(
                 pathLink.join(
                     process.cwd(),
