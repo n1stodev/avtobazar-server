@@ -8,9 +8,7 @@ import {
 class PostController {
     static async create(req, res) {
         try {
-
             let token = req.headers.token;
-
             let {
                 _id
             } = await usersSchema.findById(JWT.VERIFY(token).id);
@@ -30,6 +28,7 @@ class PostController {
                 imgtitle,
                 year,
             } = req.body;
+            console.log('req.body :', req.body);
             if (file.truncated) throw new Error('you must send max 50 mb file')
             let types = file.name.split('.')
             let type = types[types.length - 1]
@@ -71,6 +70,7 @@ class PostController {
                 });
             }
         } catch (err) {
+            console.log('err.message :', err.message);
             res.status(500).send({
                 message: err.message
             });
@@ -82,9 +82,9 @@ class PostController {
             const posts = await Post.find().populate('author', 'username');
             res.json(posts);
         } catch (err) {
-           res.status(500).send({
-               message: err.message
-           });
+            res.status(500).send({
+                message: err.message
+            });
         }
     }
 
@@ -96,9 +96,9 @@ class PostController {
             }
             res.json(post);
         } catch (err) {
-        res.status(500).send({
-            message: err.message
-        });
+            res.status(500).send({
+                message: err.message
+            });
         }
     }
 
@@ -131,9 +131,9 @@ class PostController {
             await post.save();
             res.json(post);
         } catch (err) {
-          res.status(500).send({
-              message: err.message
-          });
+            res.status(500).send({
+                message: err.message
+            });
         }
     }
 
@@ -149,9 +149,9 @@ class PostController {
             await post.save();
             res.send('Post deleted');
         } catch (err) {
-           res.status(500).send({
-               message: err.message
-           });
+            res.status(500).send({
+                message: err.message
+            });
         }
     }
 }
