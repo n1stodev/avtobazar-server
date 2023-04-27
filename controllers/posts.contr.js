@@ -71,8 +71,9 @@ class PostController {
                 });
             }
         } catch (err) {
-            console.log('err :', err);
-            res.status(500).send('Server error');
+            res.status(500).send({
+                message: err.message
+            });
         }
     }
 
@@ -81,8 +82,9 @@ class PostController {
             const posts = await Post.find().populate('author', 'username');
             res.json(posts);
         } catch (err) {
-            console.error(err);
-            res.status(500).send('Server error');
+           res.status(500).send({
+               message: err.message
+           });
         }
     }
 
@@ -94,8 +96,9 @@ class PostController {
             }
             res.json(post);
         } catch (err) {
-            console.error(err);
-            res.status(500).send('Server error');
+        res.status(500).send({
+            message: err.message
+        });
         }
     }
 
@@ -128,8 +131,9 @@ class PostController {
             await post.save();
             res.json(post);
         } catch (err) {
-            console.error(err);
-            res.status(500).send('Server error');
+          res.status(500).send({
+              message: err.message
+          });
         }
     }
 
@@ -145,8 +149,9 @@ class PostController {
             await post.save();
             res.send('Post deleted');
         } catch (err) {
-            console.error(err);
-            res.status(500).send('Server error');
+           res.status(500).send({
+               message: err.message
+           });
         }
     }
 }

@@ -45,7 +45,7 @@ class CommentController {
             console.error(error);
             res.status(500).json({
                 success: false,
-                message: 'Internal server error'
+                message:error.message
             });
         }
     }
@@ -64,7 +64,7 @@ class CommentController {
             console.error(error);
             res.status(500).json({
                 success: false,
-                message: 'Internal server error'
+                message:error.message
             });
         }
     }
@@ -93,7 +93,7 @@ class CommentController {
             console.error(error);
             res.status(500).json({
                 success: false,
-                message: 'Internal server error'
+                message:error.message
             });
         }
     }
@@ -132,7 +132,7 @@ class CommentController {
             console.error(error);
             res.status(500).json({
                 success: false,
-                message: 'Internal server error'
+                message:error.message
             });
         }
     }
@@ -160,7 +160,7 @@ class CommentController {
             console.error(error);
             res.status(500).json({
                 success: false,
-                message: 'Internal server error'
+                message:error.message
             });
         }
     }
