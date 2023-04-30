@@ -58,23 +58,14 @@ function () {
             case 10:
               types = file.name.split('.');
               type = types[types.length - 1];
-
-              if (!(type != 'jpg')) {
-                _context.next = 14;
-                break;
-              }
-
-              throw new Error("Image's type invalid!");
-
-            case 14:
               random = Math.floor(Math.random() * 9000 + 1000);
               userUploadTitle = title + random + '.' + type;
-              _context.next = 18;
+              _context.next = 16;
               return regeneratorRuntime.awrap(file.mv(_path["default"].join(process.cwd(), 'public', 'imgs', userUploadTitle)));
 
-            case 18:
+            case 16:
               if (_id) {
-                _context.next = 22;
+                _context.next = 20;
                 break;
               }
 
@@ -83,7 +74,7 @@ function () {
                 status: 404
               }));
 
-            case 22:
+            case 20:
               post = new _postsSchema["default"]({
                 title: title,
                 distance: distance,
@@ -98,33 +89,33 @@ function () {
                 email: email,
                 image: userUploadTitle
               });
-              _context.next = 25;
+              _context.next = 23;
               return regeneratorRuntime.awrap(post.save());
 
-            case 25:
+            case 23:
               res.status(201).send({
                 data: post,
                 status: 200
               });
 
-            case 26:
-              _context.next = 32;
+            case 24:
+              _context.next = 30;
               break;
 
-            case 28:
-              _context.prev = 28;
+            case 26:
+              _context.prev = 26;
               _context.t0 = _context["catch"](0);
               console.log('err.message :', _context.t0.message);
               res.status(500).send({
                 message: _context.t0.message
               });
 
-            case 32:
+            case 30:
             case "end":
               return _context.stop();
           }
         }
-      }, null, null, [[0, 28]]);
+      }, null, null, [[0, 26]]);
     }
   }, {
     key: "getAll",
